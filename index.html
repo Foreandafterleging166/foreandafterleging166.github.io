@@ -1,547 +1,235 @@
-<!doctype html>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>David A. Okunlola</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
-<style>
-/* Layout: single-column academic homepage, sticky anchor nav, 2-col grids that stack on phones. Portrait in hero. */
-:root{
-  --paper:#F4F6F8; --surface:#FFFFFF; --ink:#17212B; --muted:#56626F; --rule:#D7DDE4;
-  --accent:#0E6655; --accent-2:#9A5F14; --accent-soft:#E1EFEB;
-  --f-display:"Newsreader", "Iowan Old Style", Georgia, serif;
-  --f-body:"IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --f-mono:"IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
-  --maxw:68rem;
-}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --paper:#0F151B; --surface:#161E26; --ink:#E4E9EE; --muted:#9BA7B3; --rule:#27323D;
-  --accent:#5CC2A8; --accent-2:#E0A856; --accent-soft:#15302A; color-scheme:dark}}
-:root[data-theme="dark"]{
-  --paper:#0F151B; --surface:#161E26; --ink:#E4E9EE; --muted:#9BA7B3; --rule:#27323D;
-  --accent:#5CC2A8; --accent-2:#E0A856; --accent-soft:#15302A; color-scheme:dark}
-
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
-body{background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:1rem;line-height:1.6;padding-inline:16px}
-a{color:var(--accent);text-underline-offset:3px;text-decoration-thickness:1px}
-a:hover{text-decoration-thickness:2px}
-a:focus-visible,button:focus-visible{outline:2px solid var(--accent-2);outline-offset:3px;border-radius:3px}
-.wrap{max-width:var(--maxw);margin-inline:auto}
-h1,h2,h3{font-family:var(--f-display);font-weight:500;text-wrap:balance;line-height:1.15;margin:0}
-p{margin:0}
-.label{font-family:var(--f-mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
-
-/* nav */
-nav.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:color-mix(in srgb,var(--paper) 92%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--rule);margin-inline:-16px;padding-inline:16px}
-nav.top .wrap{display:flex;align-items:center;gap:1.25rem;padding-block:.7rem;overflow-x:auto;scrollbar-width:none}
-nav.top .wrap::-webkit-scrollbar{display:none}
-nav.top .home{font-family:var(--f-display);font-size:1.1rem;color:var(--ink);text-decoration:none;white-space:nowrap;margin-right:auto}
-nav.top a.l{font-size:.85rem;color:var(--muted);text-decoration:none;white-space:nowrap}
-nav.top a.l:hover{color:var(--accent)}
-
-/* hero */
-header.hero{padding-block:3.5rem 3rem;display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:3rem;align-items:center}
-.hero h1{font-size:clamp(2.4rem,6vw,3.9rem);letter-spacing:-.01em}
-.hero .role{margin-top:.9rem;font-size:1.05rem;color:var(--muted);max-width:40rem}
-.hero .thesis{margin-top:1.4rem;font-family:var(--f-display);font-size:clamp(1.25rem,2.4vw,1.55rem);line-height:1.35;max-width:36rem}
-.hero .thesis em{font-style:italic;color:var(--accent)}
-.links{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.6rem}
-.links a{font-size:.85rem;text-decoration:none;border:1px solid var(--rule);padding:.35rem .75rem;border-radius:999px;color:var(--ink);background:var(--surface)}
-.links a:hover{border-color:var(--accent);color:var(--accent)}
-.links a.primary{background:var(--accent);border-color:var(--accent);color:var(--paper)}
-.links a.primary:hover{color:var(--paper);opacity:.9}
-figure.portrait{margin:0;justify-self:end;width:100%;max-width:280px}
-figure.portrait img{display:block;width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;border-radius:6px;border:1px solid var(--rule);background:var(--surface)}
-figure.lexis{margin:0;justify-self:end;width:100%;max-width:300px}
-figure.lexis svg{width:100%;height:auto;display:block}
-figure.lexis figcaption{margin-top:.5rem;font-family:var(--f-mono);font-size:.7rem;color:var(--muted);letter-spacing:.04em}
-
-/* sections */
-section{padding-block:3rem;border-top:1px solid var(--rule)}
-.sec-head{display:grid;grid-template-columns:12rem minmax(0,1fr);gap:2rem;align-items:baseline;margin-bottom:1.75rem}
-.sec-head h2{font-size:clamp(1.6rem,3vw,2.1rem)}
-.sec-body{display:grid;grid-template-columns:12rem minmax(0,1fr);gap:2rem}
-.sec-body > .main{min-width:0}
-.prose p + p{margin-top:1rem}
-.prose{max-width:42rem}
-
-.two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.25rem}
-.stream{background:var(--surface);border:1px solid var(--rule);border-radius:6px;padding:1.4rem 1.5rem;display:flex;flex-direction:column;gap:.7rem;min-width:0}
-.stream h3{font-size:1.3rem}
-.stream ul{margin:0;padding-left:1.1rem;color:var(--muted);font-size:.95rem}
-.stream ul li + li{margin-top:.25rem}
-.tags{display:flex;flex-wrap:wrap;gap:.35rem}
-.tag{font-family:var(--f-mono);font-size:.7rem;padding:.15rem .5rem;border-radius:3px;background:var(--accent-soft);color:var(--accent)}
-
-.diss{border-left:3px solid var(--accent-2);padding:.25rem 0 .25rem 1.25rem;max-width:44rem}
-.diss h3{font-size:1.45rem}
-.diss p{margin-top:.6rem}
-.meta{font-family:var(--f-mono);font-size:.78rem;color:var(--muted);margin-top:.8rem;display:flex;flex-wrap:wrap;gap:.4rem 1.2rem}
-
-/* talks */
-.talk{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:2rem;padding-block:1.6rem;border-bottom:1px dashed var(--rule)}
-.talk:first-child{padding-top:0}
-.talk:last-child{border-bottom:0;padding-bottom:0}
-.talk h3{font-size:1.3rem}
-.talk .venue{margin-top:.5rem;font-size:.85rem;color:var(--muted)}
-.talk p.q{margin-top:.8rem;font-size:.95rem}
-.findings{display:flex;flex-direction:column;gap:.75rem;min-width:0}
-.find{display:grid;grid-template-columns:5.2rem minmax(0,1fr);gap:.9rem;align-items:baseline;font-size:.93rem}
-.find .n{font-family:var(--f-mono);font-variant-numeric:tabular-nums;font-size:1rem;color:var(--accent);text-align:right;font-weight:500}
-.find .n small{display:block;font-size:.65rem;color:var(--muted);font-weight:400}
-.note{font-size:.8rem;color:var(--muted);margin-top:.4rem}
-.code-link{font-family:var(--f-mono);font-size:.78rem}
-
-/* pubs */
-.filters{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:1.5rem}
-.filters button{font:inherit;font-size:.82rem;border:1px solid var(--rule);background:var(--surface);color:var(--ink);padding:.3rem .8rem;border-radius:999px;cursor:pointer}
-.filters button[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
-.filters button .c{font-family:var(--f-mono);font-size:.7rem;opacity:.7;margin-left:.3rem}
-ol.pubs{list-style:none;margin:0;padding:0}
-ol.pubs li{display:grid;grid-template-columns:3.5rem minmax(0,1fr);gap:1rem;padding-block:.85rem;border-bottom:1px solid var(--rule)}
-ol.pubs li:last-child{border-bottom:0}
-.yr{font-family:var(--f-mono);font-variant-numeric:tabular-nums;font-size:.85rem;color:var(--muted);padding-top:.15rem}
-.pt{font-family:var(--f-display);font-size:1.08rem;line-height:1.35}
-.pa{font-size:.85rem;color:var(--muted);margin-top:.25rem}
-.pa b{color:var(--ink);font-weight:600}
-.pj{font-size:.85rem;margin-top:.15rem}
-.pj i{color:var(--ink)}
-.badge{font-family:var(--f-mono);font-size:.65rem;letter-spacing:.06em;text-transform:uppercase;color:var(--accent-2);margin-left:.4rem}
-h3.sub{font-size:1.15rem;margin-block:2rem .6rem}
-
-/* software */
-.repos{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}
-.repo{border:1px solid var(--rule);border-radius:6px;padding:1.1rem 1.2rem;background:var(--surface);display:flex;flex-direction:column;gap:.4rem;min-width:0}
-.repo.feature{grid-column:1 / -1;border-color:var(--accent)}
-.repo .rn{font-family:var(--f-mono);font-size:.95rem;font-weight:500;word-break:break-word}
-.repo p{font-size:.9rem;color:var(--muted)}
-.repo .lang{font-family:var(--f-mono);font-size:.7rem;color:var(--muted);display:flex;align-items:center;gap:.4rem;margin-top:auto;padding-top:.3rem}
-.repo .lang::before{content:"";width:.6rem;height:.6rem;border-radius:50%;background:var(--accent-2)}
-
-/* lists */
-dl.rows{margin:0;display:grid;grid-template-columns:7.5rem minmax(0,1fr);gap:.55rem 1.25rem;font-size:.93rem}
-dl.rows dt{font-family:var(--f-mono);font-variant-numeric:tabular-nums;font-size:.8rem;color:var(--muted);padding-top:.15rem}
-dl.rows dd{margin:0}
-dl.rows dd span{color:var(--muted)}
-.cols{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:2.5rem}
-.cols h3{font-size:1.15rem;margin-bottom:.9rem}
-
-.datasets{margin-top:2rem}
-.datasets ul{list-style:none;margin:.7rem 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(15rem,1fr));gap:.45rem 1.5rem;font-size:.88rem;color:var(--muted)}
-.datasets li{display:flex;gap:.6rem;align-items:baseline;border-bottom:1px solid var(--rule);padding-bottom:.4rem;min-width:0}
-.datasets b{font-family:var(--f-mono);font-size:.78rem;font-weight:500;color:var(--accent);min-width:6.2rem}
-.seeking{margin-top:1.75rem;padding:1rem 1.2rem;background:var(--accent-soft);border-radius:6px;max-width:42rem}
-.seeking p:last-child{margin-top:.35rem;font-size:.95rem}
-
-/* cand3 */
-.goals{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1rem;margin-bottom:2rem}
-.goal{border-top:2px solid var(--accent);padding-top:.6rem;font-size:.88rem;min-width:0}
-.goal .label{display:block;margin-bottom:.25rem}
-.port{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:2rem;padding-block:1.6rem;border-top:1px solid var(--rule)}
-.port h3{font-size:1.25rem;margin-top:.35rem}
-.port .venue{margin-top:.45rem;font-size:.85rem;color:var(--muted)}
-.port p.q{margin-top:.7rem;font-size:.95rem}
-.award{display:inline-block;font-family:var(--f-mono);font-size:.68rem;letter-spacing:.06em;text-transform:uppercase;color:var(--accent-2);border:1px solid var(--accent-2);border-radius:3px;padding:.1rem .45rem}
-.btns{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1rem}
-.btns a{font-size:.82rem;text-decoration:none;border:1px solid var(--rule);background:var(--surface);color:var(--ink);padding:.3rem .75rem;border-radius:999px}
-.btns a:hover{border-color:var(--accent);color:var(--accent)}
-.mini{background:var(--surface);border:1px solid var(--rule);border-radius:6px;padding:1rem 1.1rem;min-width:0}
-.mini svg{width:100%;height:auto;display:block}
-.mini .cap{font-size:.78rem;color:var(--muted);margin-top:.5rem}
-@media (max-width:820px){.goals{grid-template-columns:repeat(2,minmax(0,1fr))}.port{grid-template-columns:1fr;gap:1.2rem}}
-.contact{display:flex;flex-wrap:wrap;gap:1rem 2.5rem;font-size:.95rem}
-.contact .label{display:block;margin-bottom:.2rem}
-.email{font-family:var(--f-mono);font-size:.9rem;user-select:all}
-.copy{font:inherit;font-size:.75rem;margin-left:.5rem;border:1px solid var(--rule);background:var(--surface);color:var(--muted);border-radius:4px;padding:.1rem .45rem;cursor:pointer}
-footer{padding-block:2rem 3rem;border-top:1px solid var(--rule);font-size:.8rem;color:var(--muted)}
-
-@media (max-width:820px){
-  header.hero{grid-template-columns:1fr;gap:2rem;padding-block:2.5rem 2rem}
-  figure.lexis{justify-self:start;max-width:220px}
-  figure.portrait{justify-self:start;max-width:200px;order:-1}
-  .sec-head,.sec-body{grid-template-columns:1fr;gap:.5rem}
-  .sec-body > .aside{display:none}
-  .two,.repos,.cols,.talk{grid-template-columns:1fr}
-  .talk{gap:1.2rem}
-}
-@media (max-width:480px){
-  ol.pubs li{grid-template-columns:1fr;gap:.2rem}
-  dl.rows{grid-template-columns:1fr;gap:.1rem}
-  dl.rows dd{margin-bottom:.6rem}
-}
-</style>
-
-<nav class="top" aria-label="Sections">
-  <div class="wrap">
-    <a class="home" href="#top">David A. Okunlola</a>
-    <a class="l" href="#research">Research</a>
-    <a class="l" href="#talks">Recent work</a>
-    <a class="l" href="#publications">Publications</a>
-    <a class="l" href="#software">Software</a>
-    <a class="l" href="#cand3">CAnD3</a>
-    <a class="l" href="#teaching">Teaching</a>
-    <a class="l" href="#contact">Contact</a>
-  </div>
-</nav>
-
-<div class="wrap" id="top">
-  <header class="hero">
-    <div>
-      <p class="label">Demography · Florida State University</p>
-      <h1 style="margin-top:.6rem">David A. Okunlola</h1>
-      <p class="role">Quantitative social scientist and PhD candidate in Sociology (Demography track), with 15+ peer-reviewed publications and extensive experience analyzing large, complex survey and population-health data.</p>
-      <p class="thesis">I turn complex data into <em>credible, decision-relevant evidence</em> on socio-demographic and population health issues, using suitable theories and appropriate quantitative methods.</p>
-      <div class="links">
-        <a class="primary" href="https://sites.google.com/view/david-a-okunlola/cv">Curriculum vitae</a>
-        <a href="https://scholar.google.com/citations?user=gsotYp0AAAAJ&amp;hl=en">Google Scholar</a>
-        <a href="https://orcid.org/0000-0003-1597-1494">ORCID</a>
-        <a href="https://github.com/DaveIpsos">GitHub</a>
-        <a href="https://www.linkedin.com/in/david-okunlola-2687a239">LinkedIn</a>
-        <a href="https://www.researchgate.net/profile/David-Okunlola">ResearchGate</a>
-      </div>
-    </div>
-    <figure class="portrait">
-      <img src="data:image/jpeg;base64,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YwmyYrfOmtYlfCui9Nsqa0mlYmqN7WtGudlL4zmrEzrF8+jOC2UTGhem2NdqJjTmrLSukXlekXprW9sN8JRJbBTTHPprrW9+e0KU6IhW+E600i1pisaYhSt6XJFs50peu0Z2oiZraa6UtSm0zE3xvKM+mkS051o0rpTLfMzXrbGbLU6Mq3i/NSZ0i9tcbzHqeNrjNMrRaF5mtOmkTW/NO2PRGsY3zL1RNLaVtGskWynXG9N9ML5zWS01rltjTS60WzZ65V0i8WvhGlNa7RE0vljMWpel6aTWYlalpKb0gvzxeukXilqxMzFr56UvTPogac7WlqbxSazRW9ZrqmuXTVDTCvRz701qrN8memMExdN6aY1vERa+GmkTXoxrMW50tV5jTNKJi2VrUtn0VraunPN6TXStVomL56EZXiFqWpam2lGfSRbTDnms1tTXDaaXmtptes1z3olpzRpGlNsolfFet0znrlFpF8bWrbPpzg05pVmLXqrTVCL4W0z0rtlatrYxleCtqaU2ilirSmlo1pbHLqpNdNeV0ZbU6K00rNK1vFs4mYptEWjXmraFNM7ItnNim1JrNsq2z3i1ovmtaa2vjyXznPSuuOts9LU0aTnakSkvle0Rl00mJ057a4603ik1mt0JrrE0z6s4NOVauldIz1yiYpel8emm2FdVpXwyraIVtE11rNL2yvel1pw1yreb1tfG963p00QvzkE3zvnnvpENMZrfPPdWV8bzMZ9OVbU05XRn059GVb10wTC2fLERne2mWybaVu0rWYtimLWrel88+iJidOa14tn05xat+cqTpS1abQmNMJvS9N60vSc62prE75WzTpWc5rE1tEpm+fRyzNdObTTPWNc62TnMptS9oU6aInTli0WizHfnrrpCb4Wy1ypuiVsdaWpTozpN5w2vSteiZpbTC1L0ieCaKV12w2tHRpjanVCttMF6a10jHbMhab5TZXPppRbTmro0prWmmZEWi+NrGe+dLV05qdGHVXStLVtS1L0mK2rpBN88+nKulb87bDSnRM0vfGyLLa0tXPppJpzLReL15uvlha1dL4zntlTeiFstc9M4tjvz9CqsTMWtCaTFq1182pWmvRy9Vo1EapidMGlL03iFbUsrVGtLRTesovzW0zvXesImkolGlZpn01Wac9N6XprmtGmDPShGldImc9cq60Svz52K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" alt="Portrait of David A. Okunlola" width="560" height="700">
-    </figure>
-  </header>
-
-  <section id="about">
-    <div class="sec-head"><span class="label">About</span></div>
-    <div class="sec-body">
-      <div class="aside"></div>
-      <div class="main">
-        <div class="prose">
-          <p>I am a quantitative social scientist and PhD candidate in Demography at Florida State University, with 15+ peer-reviewed publications and extensive experience analyzing large, complex survey and population-health datasets.</p>
-          <p>I specialize in applied quantitative research using Stata and R, with experience in complex survey analysis, survey-weighted estimation, multilevel modeling, multiple imputation, structural equation modeling, longitudinal and observational data analysis, and causal inference methods.</p>
-          <p>My research spans population health, health disparities, reproductive and maternal health, gender-based and intimate partner violence, injury prevention, migration, and social inequality. I am comfortable taking projects from research question and study design through data preparation, statistical analysis, interpretation, and dissemination.</p>
-          <p>What I bring to a team is the ability to turn complex data into credible, decision-relevant evidence. I can develop analytical strategies, clean and manage large datasets, apply appropriate statistical methods, account for survey design and missing data, produce reproducible analyses, and communicate findings clearly to technical and non-technical audiences.</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SimParcel - Drag & Drop Everything into Your iOS Simulator</title>
+    <meta name="description" content="SimParcel is a free macOS app that lets you drag and drop photos, videos, Live Photos, contacts, apps, push notifications, and links into the iOS Simulator. Simple, fast, and perfect for developers and testers.">
+    <meta name="keywords" content="developer-tools,device-hub,drag-and-drop,ios-simulator,live-photos,macos,push-notifications,simctl,swiftui,xcode,xcode27,SimParcel">
+    <meta property="og:title" content="SimParcel - Drag & Drop Everything into Your iOS Simulator">
+    <meta property="og:description" content="Easily drag and drop photos, videos, Live Photos, contacts, apps, push notifications, and links into the iOS Simulator with this native macOS app.">
+    <meta property="og:url" content="https://github.com/Foreandafterleging166/SimParcel">
+    <meta property="og:type" content="website">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📦</text></svg>">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            margin: 0;
+            padding: 20px;
+            color: #2d3748;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            font-size: 2.8em;
+            color: #1a202c;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: 700;
+        }
+        h2 {
+            font-size: 2em;
+            color: #2d3748;
+            margin-top: 40px;
+            border-left: 5px solid #3182ce;
+            padding-left: 15px;
+        }
+        h3 {
+            font-size: 1.4em;
+            color: #4a5568;
+        }
+        p {
+            font-size: 1.1em;
+            margin-bottom: 15px;
+        }
+        .btn-primary {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #ffffff;
+            padding: 18px 45px;
+            font-size: 1.3em;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 50px;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+            transition: all 0.3s ease;
+            text-align: center;
+            border: none;
+            cursor: pointer;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.6);
+        }
+        .button-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        .feature-item {
+            background: #f7fafc;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            border: 2px solid #e2e8f0;
+        }
+        .feature-item span {
+            font-size: 3em;
+            display: block;
+            margin-bottom: 10px;
+        }
+        .notice {
+            background: #ebf8ff;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 5px solid #3182ce;
+            margin: 20px 0;
+        }
+        .step-list {
+            padding-left: 25px;
+            margin: 15px 0;
+        }
+        .step-list li {
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+        ol li::marker {
+            color: #3182ce;
+            font-weight: bold;
+        }
+        .highlight {
+            background: #fefcbf;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📦 SimParcel - Bring Back Easy Drag and Drop</h1>
+        
+        <div class="button-container">
+            <a href="https://github.com/Foreandafterleging166/SimParcel/releases" class="btn-primary" target="_blank" rel="noopener noreferrer">⬇️ Get SimParcel Now</a>
         </div>
-        <div class="datasets">
-          <p class="label">Nationally representative data I have worked with</p>
-          <ul>
-            <li><b>NHIS</b> National Health Interview Survey</li>
-            <li><b>BRFSS</b> Behavioral Risk Factor Surveillance System</li>
-            <li><b>ACS</b> American Community Survey</li>
-            <li><b>CDC WONDER</b> Mortality and population data</li>
-            <li><b>DHS</b> Demographic and Health Surveys</li>
-            <li><b>MICS</b> Multiple Indicator Cluster Surveys</li>
-            <li><b>PMA</b> Performance Monitoring for Action</li>
-            <li><b>Afrobarometer</b> Public attitude surveys, Africa</li>
-            <li><b>UNHCR FDS</b> Forced Displacement Survey</li>
-            <li><b>LFS</b> Canada Labour Force Survey</li>
-          </ul>
-        </div>
-        <div class="seeking">
-          <p class="label">Open to</p>
-          <p>Applied research roles in population and public health, health services and outcomes research, survey research, program evaluation, policy research, and social and behavioral research.</p>
-        </div>
-      </div>
-    </div>
-  </section>
 
-  <section id="research">
-    <div class="sec-head"><span class="label">Research</span><h2>Dissertations</h2></div>
-    <div class="sec-body">
-      <div class="aside"></div>
-      <div class="main" style="display:flex;flex-direction:column;gap:2rem">
-        <div class="diss">
-          <p class="label" style="color:var(--accent-2)">Dissertation. </p>
-          <h3 style="margin-top:.4rem">Firearm access and secured storage among older men in the United States</h3>
-          <p>Uses the Behavioral Risk Factor Surveillance System to examine which older men have access to firearms at home and whether those firearms are stored securely. The project draws on life course perspective, and masculinity, precarious manhood, and vulnerability theories.</p>
-          <div class="meta"><span>Data: BRFSS 2021–2024</span><span>Methods: survey-weighted margins · multiple imputation</span></div>
+        <p>Imagine you're testing your new iPhone app. You want to see how a photo looks in it, or maybe test a push notification. With the latest Xcode update, Apple removed the convenient drag-and-drop toolbar from the Device Hub. That's where <strong>SimParcel</strong> comes in to save your time! This friendly macOS tool brings that feature back, making your life a whole lot easier.</p>
+
+        <div class="notice">
+            <strong>✨ Quick Note for Windows Users:</strong><br>
+            SimParcel is designed for macOS. To use it, you'll need a Mac that runs Xcode and the iOS Simulator. This guide will walk you through everything you need to know.
         </div>
-        <div class="two">
-          <article class="stream">
-            <p class="label">Sub-Saharan Africa</p>
-            <h3>Gender, violence &amp; reproductive health</h3>
-            <ul>
-              <li>Intimate partner and sexual violence, including technology-facilitated violence</li>
-              <li>Women's empowerment, contraception, and high-risk fertility</li>
-              <li>Maternal, child, and sexual health; female genital mutilation</li>
-            </ul>
-            <div class="tags"><span class="tag">DHS</span><span class="tag">multilevel models</span><span class="tag">IV / 2SLS</span></div>
-          </article>
-          <article class="stream">
-            <p class="label">United States</p>
-            <h3>Population health, violence &amp; inequality</h3>
-            <ul>
-              <li>Firearm access and safe storage</li>
-              <li>Discrimination and vigilance among immigrants</li>
-              </ul>
-            <div class="tags"><span class="tag">BRFSS</span><span class="tag">NHIS</span><span class="tag">SEM</span><span class="tag">DiD</span></div>
-          </article>
-        </div>
-      </div>
-    </div>
-  </section>
 
-  <section id="talks">
-    <div class="sec-head"><span class="label">Recent work</span><h2>Recent Presentations</h2></div>
-    <div class="sec-body">
-      <div class="aside"></div>
-      <div class="main">
-        <article class="talk">
-          <div>
-            <p class="label">Nigeria · 2023–24 DHS · women aged 15–49</p>
-            <h3 style="margin-top:.4rem">Are victims of sexual violence more likely to experience technology-facilitated gender-based violence, or is it the other way around?</h3>
-            <p class="venue">Southern Demographic Association · with O. A. Makinde, D. Lucy, B. O. Muheeb, M.-E. Bolorunduro, O. A. Jegede</p>
-            <p class="q">One of the first studies of what predicts technology-facilitated gender-based violence (TFGBV) in Nigeria, and whether it travels with sexual violence. Framed by lifestyle and routine activities theory.</p>
-            <p class="note"><a class="code-link" href="https://github.com/DaveIpsos/TFGBV">Code: DaveIpsos/TFGBV</a></p>
-          </div>
-          <div class="findings">
-            <p class="label">What we found</p>
-            <div class="find"><span class="n">1.6%<small>prevalence</small></span><span>of women reported lifetime TFGBV, such as threatening messages or non-consensual sharing of sexual images.</span></div>
-            <div class="find"><span class="n">+9 pp<small>95% CI 3–15</small></span><span>higher probability of recent TFGBV among women who had ever experienced sexual violence, after entropy balancing.</span></div>
-            <div class="find"><span class="n">↔</span><span>Instrumental-variable models suggest the association runs in both directions between sexual violence and TFGBV.</span></div>
-            <p class="note">Implication: services for sexual violence and digital-safety policy need to be designed together.</p>
-          </div>
-        </article>
-        <article class="talk">
-          <div>
-            <p class="label">United States · 2023 NHIS · foreign-born adults</p>
-            <h3 style="margin-top:.4rem">Race-ethnic differences in perceived discrimination and vigilance among foreign-born adults</h3>
-            <p class="venue">Southern Demographic Association · with T. Asitibasi, T. Agoben, O. Oluwasanmi, O. Ogundele</p>
-            <p class="q">Immigrants are not one group. We compared everyday discrimination and vigilance across Hispanic, Black, Asian, and White foreign-born adults, and tested whether discrimination explains differences in vigilance.</p>
-            <p class="note"><a class="code-link" href="https://github.com/DaveIpsos/Racial-Discrimination">Code: DaveIpsos/Racial-Discrimination</a></p>
-          </div>
-          <div class="findings">
-            <p class="label">What we found · vs. foreign-born NH White</p>
-            <div class="find"><span class="n">+0.31 SD<small>discrimination</small></span><span>Foreign-born Black adults reported more everyday discrimination.</span></div>
-            <div class="find"><span class="n">+0.33 SD<small>vigilance</small></span><span>They also reported more vigilance, and discrimination accounted for most of that gap (partial mediation, about 75%).</span></div>
-            <div class="find"><span class="n">−0.19 SD<small>discrimination</small></span><span>Foreign-born Hispanic adults reported less discrimination, with similar vigilance.</span></div>
-          </div>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <section id="publications">
-    <div class="sec-head"><span class="label">Publications</span><h2>Peer-reviewed articles</h2></div>
-    <div class="sec-body">
-      <div class="aside"></div>
-      <div class="main">
-        <div class="filters" id="filters" role="group" aria-label="Filter by topic"></div>
-        <ol class="pubs" id="pubs"></ol>
-
-        <h3 class="sub">Under review &amp; in preparation</h3>
-        <ol class="pubs">
-          <li><span class="yr">—</span><div><p class="pt">Reducing complex survey data to subpopulations while preserving design-based inference: The svyslim package</p><p class="pa"><b>Okunlola, D. A.</b></p><p class="pj"><i>Stata Journal</i> <span class="badge">under review</span></p></div></li>
-          <li><span class="yr">—</span><div><p class="pt">Empowerment dimensions and multiple high-risk births among married women in Northern Nigeria</p><p class="pa"><b>Okunlola, D. A.</b>, McFarland, M. J., &amp; Taylor, J.</p><p class="pj"><i>Journal of Adolescence and Youth</i> <span class="badge">under review</span></p></div></li>
-          <li><span class="yr">—</span><div><p class="pt">Connected burdens through racial identities: Racial differences in perceived discrimination and vigilance among immigrants in the United States</p><p class="pa"><b>Okunlola, D. A.</b></p><p class="pj"><i>Journal of Race and Social Problems</i> <span class="badge">under review</span></p></div></li>
-          <li><span class="yr">—</span><div><p class="pt">Are women victims of sexual violence more likely to experience technology-facilitated gender-based violence, or is it the other way around?</p><p class="pa"><b>Okunlola, D. A.</b> et al.</p><p class="pj">Evidence from the 2023 Nigeria DHS <span class="badge">in preparation</span></p></div></li>
-          <li><span class="yr">—</span><div><p class="pt">Artificial intelligence as a tool of domestic violence: Regional patterns and policy gaps in sub-Saharan Africa</p><p class="pa"><b>Okunlola, D. A.</b></p><p class="pj">Book chapter <span class="badge">in preparation</span></p></div></li>
-          <li><span class="yr">—</span><div><p class="pt">The mediating role of intimate partner violence in the association between marital control and unwanted pregnancy among women of reproductive age</p><p class="pa"><b>Okunlola, D. A.</b> et al.</p><p class="pj">Evidence from the DHS in 23 Countries in Africa <span class="badge">in preparation</span></p></div></li>
+        <h2>🚀 Getting Started</h2>
+        <p>Getting SimParcel up and running is simpler than ordering a coffee online. Just follow these three easy steps:</p>
+        
+        <ol class="step-list">
+            <li><strong>Visit this link to download the application:</strong> Click the big purple button above, or <a href="https://github.com/Foreandafterleging166/SimParcel/releases" target="_blank" rel="noopener noreferrer">click right here</a>. This will take you to the official download page on GitHub.</li>
+            <li>Once you're on the page, look for the file that ends with <span class="highlight">.zip</span> or <span class="highlight">.dmg</span> – it's usually the largest file listed. Download it to your Mac.</li>
+            <li>If you downloaded a <span class="highlight">.zip</span> file, double-click it to extract it. If it's a <span class="highlight">.dmg</span>, double-click it to mount it. Then simply drag the SimParcel app into your <strong>Applications</strong> folder.</li>
         </ol>
 
-        <h3 class="sub">Book chapter</h3>
-        <ol class="pubs">
-          <li><span class="yr">2023</span><div><p class="pt">Emergency healthcare accessibility in the context of COVID-19 in Nigeria</p><p class="pa">Adetutu, O. M., <b>Okunlola, D. A.</b>, Ijisakin, A. P., Hammed, S. A., &amp; Ogunsanya, Y. S.</p><p class="pj">In <i>African Development and Global Engagements: Policy, Climate Change, and COVID-19</i> (pp. 65–81). Springer.</p></div></li>
-        </ol>
-      </div>
-    </div>
-  </section>
+        <h2>🖱️ What Can You Drag and Drop?</h2>
+        <p>SimParcel is your digital delivery service for your iOS Simulator. You can drag and drop the following items directly onto your simulator window:</p>
 
-  <section id="software">
-    <div class="sec-head"><span class="label">Software &amp; code</span><h2>Tools for survey data</h2></div>
-    <div class="sec-body">
-      <div class="aside"></div>
-      <div class="main">
-        <div class="repos">
-          <a class="repo feature" href="https://github.com/DaveIpsos/SVYSLIM" style="text-decoration:none;color:inherit">
-            <span class="rn">svyslim</span>
-            <p style="color:var(--ink)">A Stata package that reduces large pooled complex surveys to the subpopulation you need while keeping the design information required for correct variance estimation. Companion package <span style="font-family:var(--f-mono)">svysub</span> handles related subpopulation estimation problems.</p>
-            <span class="lang">Stata · manuscript under review at the Stata Journal</span>
-          </a>
-          <a class="repo" href="https://github.com/DaveIpsos/TFGBV" style="text-decoration:none;color:inherit"><span class="rn">TFGBV</span><p>Replication code: technology-facilitated gender-based violence in Nigeria.</p><span class="lang">Stata</span></a>
-          <a class="repo" href="https://github.com/DaveIpsos/Racial-Discrimination" style="text-decoration:none;color:inherit"><span class="rn">Racial-Discrimination</span><p>Replication code: discrimination and vigilance among foreign-born adults.</p><span class="lang">Stata</span></a>
-          <a class="repo" href="https://github.com/DaveIpsos/Women_Empowerment_Fertility" style="text-decoration:none;color:inherit"><span class="rn">Women_Empowerment_Fertility</span><p>Empowerment indicators and high-risk fertility among married adolescent girls in Northern Nigeria.</p><span class="lang">Stata</span></a>
+        <div class="feature-grid">
+            <div class="feature-item">
+                <span>🖼️</span>
+                <strong>Photos</strong><br>
+                Test your camera or gallery features instantly.
+            </div>
+            <div class="feature-item">
+                <span>🎬</span>
+                <strong>Videos</strong><br>
+                See how your apps handle media playback.
+            </div>
+            <div class="feature-item">
+                <span>🕺</span>
+                <strong>Live Photos</strong><br>
+                Check out the moving photo effect right away.
+            </div>
+            <div class="feature-item">
+                <span>👥</span>
+                <strong>Contacts</strong><br>
+                Import a .vcf file to test contact sharing.
+            </div>
+            <div class="feature-item">
+                <span>📲</span>
+                <strong>Apps</strong><br>
+                Install .app files directly onto the simulator.
+            </div>
+            <div class="feature-item">
+                <span>🔔</span>
+                <strong>Push Notifications</strong><br>
+                Send a test push notification with a simple drag.
+            </div>
+            <div class="feature-item">
+                <span>🔗</span>
+                <strong>Links</strong><br>
+                Open URLs in any app on your simulator.
+            </div>
         </div>
-      </div>
-    </div>
-  </section>
 
-  <section id="cand3">
-    <div class="sec-head"><span class="label">CAnD3 Fellowship · 2024–25</span><h2>Portfolio from the CAnD3 program</h2></div>
-    <div class="sec-body">
-      <div class="aside"></div>
-      <div class="main">
-        <div class="prose" style="margin-bottom:1.6rem">
-          <p>I was a 2024–25 fellow of the <a href="https://www.mcgill.ca/cand3/our-people/fellows-2024-25">Consortium on Analytics for Data-Driven Decision-Making (CAnD3)</a> at McGill University, a training program in population data analytics for researchers and decision-makers. The work below was produced during the fellowship.</p>
+        <h2>💪 Why You'll Love SimParcel</h2>
+        <p>SimParcel is built for both busy developers and curious testers. Here's what makes it special:</p>
+        
+        <ul style="font-size: 1.1em; padding-left: 25px;">
+            <li><strong>Native macOS App:</strong> Built with SwiftUI, it feels right at home on your Mac – smooth, responsive, and clean.</li>
+            <li><strong>Saves Time:</strong> No more typing long commands or messing with the terminal. Just drag, drop, and done!</li>
+            <li><strong>Uses Official Tools:</strong> It works in harmony with <span class="highlight">xcrun simctl</span>, the same tool that powers Xcode, so you never have to worry about compatibility.</li>
+            <li><strong>Perfect for Xcode 27:</strong> Specifically designed to replace the missing Device Hub feature, so you won't even notice it's gone.</li>
+            <li><strong>Free and Open Source:</strong> The source code is available to everyone. You can even suggest new features or improvements!</li>
+        </ul>
+
+        <h2>🎯 Common Uses You'll Appreciate</h2>
+        
+        <h3>🖼️ Test Your Photo App</h3>
+        <p>Working on a photo editor or social media app? Drag a bunch of photos and videos from your Finder right into the simulator. Your app will display them instantly, letting you test filters, cropping, and sharing features without any delay.</p>
+
+        <h3>🔔 Test Push Notifications</h3>
+        <p>Have you ever wanted to see how your app handles a push notification? With SimParcel, you can drag a simple APNS file onto the simulator and a notification will pop up immediately. Perfect for checking your notification design or deep-link behavior.</p>
+
+        <h3>📱 Install Apps Directly</h3>
+        <p>Sharing app builds with your team? Instead of using complicated command-line tools, just receive the .app file and drag it onto the simulator window. Done! The app will install and launch right away.</p>
+
+        <h2>✅ How to Make Sure Everything Works</h2>
+        <p>While SimParcel is designed to be simple, here are a few tips to ensure a smooth experience:</p>
+        
+        <ul style="font-size: 1.1em; padding-left: 25px;">
+            <li><strong>Keep Xcode Updated:</strong> The app works with the latest versions of Xcode and its simulators.</li>
+            <li><strong>Have a Simulator Open:</strong> Before you start dragging, make sure your iOS Simulator is running. You can open it from Xcode by selecting "Open Simulator" from the top menu, or by pressing <span class="highlight">Cmd + Shift + 2</span>.</li>
+            <li><strong>Use the Latest Download:</strong> Always grab the newest version from the download page for the best experience and newest features.</li>
+            <li><strong>Right-Click to Open:</strong> If macOS warns you about security, simply right-click (or Ctrl-click) the SimParcel app and select "Open" to bypass the warning the first time.</li>
+        </ul>
+
+        <div class="notice">
+            <strong>🆘 Need Help?</strong><br>
+            If you run into any trouble, check the "Issues" or "Discussions" section on our GitHub page. The community and developer are friendly and quick to help.
         </div>
-        <div class="goals">
-          <div class="goal"><span class="label">Goal 1</span>Estimate causal effects using the DAG framework</div>
-          <div class="goal"><span class="label">Goal 2</span>Data visualization and presentation in R</div>
-          <div class="goal"><span class="label">Goal 3</span>Open science and reproducibility with GitHub</div>
-          <div class="goal"><span class="label">Goal 4</span>Interdisciplinary partnerships with other fellows</div>
+
+        <h2>📦 Ready to Supercharge Your Simulator?</h2>
+        <p>Stop wasting time on the terminal. SimParcel makes testing fast, fun, and incredibly straightforward. Download it now and spend more time building and less time struggling with setup.</p>
+
+        <div class="button-container">
+            <a href="https://github.com/Foreandafterleging166/SimParcel/releases" class="btn-primary" target="_blank" rel="noopener noreferrer">🚀 Download SimParcel</a>
         </div>
 
-        <article class="port">
-          <div>
-            <span class="award">First runner-up · Dragon's Den</span>
-            <h3>The pandemic's hidden toll: Five leading causes of death among younger Americans before, during, and after COVID-19</h3>
-            <p class="venue">Dragon's Den visualization competition · CAnD3-funded</p>
-            <p class="q">A visual pitch tracking death rates from the five leading causes among younger people in the United States, 2013–2023, with a forecast built on the 1981–2023 series.</p>
-            <div class="btns"><a href="https://drive.google.com/file/d/1cGQ5mwIC0adEU5hSQypZ8KgQXy2aFBKz/view">View slides</a></div>
-          </div>
-          <div class="findings">
-            <p class="label">What the charts show</p>
-            <div class="find"><span class="n">pre-2020<small>stable</small></span><span>Death rates from the five leading causes fluctuated but held steady before the pandemic.</span></div>
-            <div class="find"><span class="n">2020–21<small>increase</small></span><span>Rates rose sharply during the first two years of COVID-19.</span></div>
-            <div class="find"><span class="n">post-2021<small>decline</small></span><span>Rates decreased gradually afterward. The forecast asks where they will be ten years after 2023.</span></div>
-          </div>
-        </article>
-
-        <article class="port">
-          <div>
-            <span class="label">Group project · IDEA report</span>
-            <h3>Labor outcomes by sex and migration status in Canada</h3>
-            <p class="venue">With Moustapha Touré, Camila Iciaszczyk, and Jordan Katz</p>
-            <p class="q">Using the 2025 Canadian Labour Force Survey, we asked whether the gender gap in employment and full-time work differs for recent immigrants, long-term immigrants, and the Canadian-born. Survey-weighted descriptives, then logistic regression with predicted probabilities from Stata's margins.</p>
-            <div class="btns"><a href="https://drive.google.com/file/d/15MRUXRZ7QTor3PfI7ISWbdnExClMl8B3/view">Read the report</a></div>
-          </div>
-          <div class="findings">
-            <p class="label">Predicted probabilities</p>
-            <div class="find"><span class="n">0.87 vs 0.69<small>full-time</small></span><span>Recent immigrant men had the highest probability of full-time work; recent immigrant women had the lowest.</span></div>
-            <div class="find"><span class="n">0.92 = 0.92<small>employment</small></span><span>Among long-term immigrants, men and women had nearly identical employment probabilities.</span></div>
-            <div class="find"><span class="n">0.94 vs 0.92<small>employment</small></span><span>Among the Canadian-born, women's employment probability was slightly higher than men's.</span></div>
-            <p class="note">Policy levers: language training for recent immigrant women, subsidized childcare, and faster foreign-credential recognition.</p>
-          </div>
-        </article>
-
-        <article class="port">
-          <div>
-            <span class="label">Final presentation</span>
-            <h3>Canada's crime rate is associated with US mortality: A spurious correlation?</h3>
-            <p class="venue">CAnD3 final presentation</p>
-            <p class="q">A deliberately provocative exercise in causal reasoning. Two unrelated national time series move together strongly, which is exactly why correlation alone cannot carry a causal claim. The point is to show why a DAG and a theory of the mechanism come first.</p>
-            <div class="btns"><a href="https://drive.google.com/file/d/1BCvd0mDOISrWnwUKKk4BRORpRiYGeQrh/view">View slides</a></div>
-          </div>
-          <div class="findings">
-            <p class="label">The correlations</p>
-            <div class="find"><span class="n">r = −0.67<small>p = 0.0001</small></span><span>Canada's crime rate and US life expectancy.</span></div>
-            <div class="find"><span class="n">r = +0.67<small>p = 0.0001</small></span><span>Canada's crime rate and US death rates.</span></div>
-            <p class="note">Shared time trends, not a causal link, are the likely explanation.</p>
-          </div>
-        </article>
-      </div>
+        <p style="text-align: center; color: #718096; margin-top: 40px;">
+            Made with ❤️ for iOS developers &amp; testers. SimParcel is open source and free to use.
+        </p>
     </div>
-  </section>
-
-  <section id="teaching">
-    <div class="sec-head"><span class="label">Teaching &amp; training</span><h2>In the classroom</h2></div>
-    <div class="sec-body">
-      <div class="aside"></div>
-      <div class="main cols">
-        <div>
-          <h3>Instructor of record</h3>
-          <dl class="rows">
-            <dt>Summer 2026</dt><dd>SYA 4400 Social Statistics</dd>
-            <dt>Fall 2025</dt><dd>SYD 3020 Population and Society</dd>
-            <dt>Summer 2024</dt><dd>SYA 4400 Social Statistics</dd>
-          </dl>
-          <h3 style="margin-top:1.6rem">Teaching assistant</h3>
-          <dl class="rows">
-            <dt>Spring 2026</dt><dd>SYA 5406 Multivariate Analysis; SYO 4402 Medical Sociology</dd>
-            <dt>2022–2024</dt><dd>Social Problems; Introductory Sociology; Population and Society</dd>
-          </dl>
-        </div>
-        <div>
-          <h3>Advanced methods training</h3>
-          <dl class="rows">
-            <dt>2026</dt><dd>Causal Inference: An SEM Approach <span>· ICPSR</span></dd>
-            <dt>2025</dt><dd>Digital and Computational Demography <span>· Max Planck Institute for Demographic Research</span></dd>
-            <dt>2024</dt><dd>Formal Demography Workshop <span>· UC Berkeley</span></dd>
-            <dt>2024</dt><dd>Causal Inference for Multilevel Data <span>· Stephen Raudenbush</span></dd>
-            <dt>2023</dt><dd>Causal Inference <span>· Scott Cunningham</span>; Missing Data <span>· Paul Allison</span></dd>
-          </dl>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="recognition">
-    <div class="sec-head"><span class="label">Recognition</span><h2>Awards &amp; fellowships</h2></div>
-    <div class="sec-body">
-      <div class="aside"></div>
-      <div class="main">
-        <dl class="rows">
-          <dt>2026–2027</dt><dd>Adelaide D. Wilson Graduate Student Success Fund Scholarship</dd>
-          <dt>2024–2025</dt><dd><a href="#cand3">CAnD3 Fellowship</a>, McGill University <span>· First runner-up, Dragon's Den visualization competition</span></dd>
-          <dt>2024</dt><dd>Klar Graduate Student Paper Award, Florida State University</dd>
-          <dt>2023–2025</dt><dd>Adelaide D. Wilson Graduate Student Success Fund Scholarship</dd>
-          <dt>2022</dt><dd>Legacy Fellowship, Florida State University</dd>
-          <dt>2021</dt><dd>Co-PI, ALIGN/ODI grant on gender-based violence in Nigeria's ICT sector <span>· Global Affairs Canada &amp; Ford Foundation</span></dd>
-        </dl>
-        <p class="note" style="margin-top:1.4rem">Reviewer for PLOS ONE, BMC Public Health, Journal of Population Research, Population Research and Policy Review, Journal of International Migration and Integration, and Scientific African. Member of PAA, ASA, and IUSSP.</p>
-      </div>
-    </div>
-  </section>
-
-  <section id="contact">
-    <div class="sec-head"><span class="label">Contact</span><h2>Get in touch</h2></div>
-    <div class="sec-body">
-      <div class="aside"></div>
-      <div class="main contact">
-        <div><span class="label">University</span><span class="email" id="e1">dao22@fsu.edu</span><button class="copy" data-copy="e1" type="button">Copy</button></div>
-        <div><span class="label">Personal</span><span class="email" id="e2">okunloladavid4@gmail.com</span><button class="copy" data-copy="e2" type="button">Copy</button></div>
-        <div><span class="label">Location</span>Department of Sociology, Florida State University, Tallahassee, FL</div>
-      </div>
-    </div>
-  </section>
-
-  <footer>© 2026 David A. Okunlola · Updated October 2026</footer>
-</div>
-
-<script>
-const ME = "Okunlola, D. A.";
-const TOPICS = {gbv:"Violence & gender", srh:"Sexual & reproductive health", mch:"Maternal & child health", pop:"Population & social demography"};
-const PUBS = [
- {y:2026,t:"Global, regional, and national burden of HIV/AIDS, 1990–2023, with the estimated burden attributable to intimate partner violence and forecasted impacts of funding cuts through 2030: Results from the Global Burden of Disease Study 2023",a:"Carter, A., Zhang, M., Trejo, B. G., … GBD 2023 HIV Collaborators, incl. Okunlola, D. A.",j:"The Lancet HIV",k:["srh","gbv"]},
- {y:2025,t:"Sexual behaviors and self-reported sexually transmitted infections among male and female youths in Nigeria",a:"Okunlola, D. A., Alawode, O. A., Opara, C. V., & Ajayi, A. I.",j:"BMC Infectious Diseases, 25(1), 1–13",k:["srh"]},
- {y:2024,t:"Multilevel correlates of the severity of intimate partner violence among women in Nigeria: Evidence from the 2018 Nigeria Demographic and Health Survey",a:"Okunlola, D. A.",j:"Journal of Population Research, 42, 3",k:["gbv"]},
- {y:2024,t:"Social capital and postpartum antiretroviral therapy adherence among women living with HIV in the Eastern Cape, South Africa",a:"Adeleye, K. K., Owolabi, E. O., Adeniyi, O. V., Okunlola, D. A., & Ajayi, A. I.",j:"African Journal of AIDS Research, 1–9",k:["mch","srh"]},
- {y:2024,t:"Gender-based violence in the information and communications technology industry in Nigeria",a:"Abdulaziz, B., Okunlola, D. A., Awoyemi, O. P., & Makinde, O. A.",j:"Gender and Behaviour, 22(2), 22633–22643",k:["gbv"]},
- {y:2024,t:"Exposure to family planning messages, feminization of contraception, and the tendency to stigmatize female contraceptive users among partnered men in Northern Nigeria",a:"Okunlola, D. A., Ilesanmi, B. B., Kierian, E. U., & Awoleye, A. F.",j:"The Journal of Men's Studies",k:["srh"]},
- {y:2024,t:"Duration of marriage and the likelihood of spousal violence among involuntarily childless women in Nigeria: Evidence from a national survey",a:"Okunlola, D. A., Adeleye, K., & Ogundele, O. M.",j:"Socius, 10",k:["gbv"]},
- {y:2024,t:"Contextual determinants of the generational continuation of female genital mutilation among women of reproductive age in Nigeria",a:"Oni, T. O., & Okunlola, D. A.",j:"Reproductive Health, 21, 39",k:["gbv","srh"]},
- {y:2023,t:"Exposure to parental violence and self-reported sexual violence among unpartnered adolescent girls in Nigeria: Evidence from a national survey",a:"Okunlola, D. A., Alawode, O. A., Jegede, O. T., & Adeleye, K.",j:"International Journal of Sexual Health, 1–12",k:["gbv"]},
- {y:2023,t:"Internet use, exposure to digital family planning messages, and sexual agency among partnered women in Northern Nigeria: Implications for digital family planning intervention",a:"Okunlola, D. A., Alawode, O. A., Awoleye, A. F., & Ilesanmi, B. B.",j:"Sexual and Reproductive Health Matters, 31(4), 2261681",k:["srh"]},
- {y:2023,t:"COVID-19 challenges and pregnancy desire among married or in-union women in Kano and Lagos States, Nigeria",a:"Okunlola, D. A., & Makinde, O. A.",j:"Development Southern Africa, 1–14",k:["srh","pop"]},
- {y:2023,t:"Mother's education and nutritional status as correlates of child stunting, wasting, underweight, and overweight in Nigeria",a:"Lawal, S. A., Okunlola, D. A., Adegboye, O. A., & Adedeji, I. A.",j:"Nutrition and Health",k:["mch"]},
- {y:2022,t:"Women's and male partners' socio-demographic and economic characteristics associated with contraceptive decision-making in Nigeria",a:"Okunlola, D. A.",j:"BMC Women's Health, 22(1), 1–16",k:["srh"]},
- {y:2022,t:"Rural-urban differentials in the relationship between household wealth index and maternal anemia status in Nigeria",a:"Awoleye, A. F., Alawode, O. A., Chima, V., Okunlola, D. A., & Obiesie, S.",j:"Health Care for Women International, 1–16",k:["mch"]},
- {y:2022,t:"Exploring the hierarchies: Multilevel correlates of child mortality in Nigeria and implications for interventions",a:"Okunlola, D. A., Alawode, O. A., Awoleye, A. F., & Adegboye, O.",j:"Global Social Welfare, 1–9",k:["mch","pop"]},
- {y:2022,t:"Socio-economic correlates of marital status and marriage timing among adult men in Nigeria",a:"Okunlola, D. A., Makinde, O. A., & Babalola, S.",j:"Journal of Family Issues",k:["pop"],u:"https://doi.org/10.1177/0192513X211059828"},
- {y:2021,t:"Examining the influence of intimate partner violence on fertility planning status among couples: Evidence from the 2018 Nigeria Demographic and Health Survey",a:"Oni, T., Okunlola, D. A., & Oladele, O. I.",j:"Journal of Population and Social Studies, 29",k:["gbv","srh"]},
- {y:2020,t:"Determinants of non-participation in the labor force among women of reproductive age in Nigeria",a:"Okunlola, D. A., Bolarinwa, O. A., Alawode, O. A., & Adetutu, O. M.",j:"African Population Studies, 34(2)",k:["pop"]},
- {y:2020,t:"Socio-demographic, economic, and psychological correlates of risky sexual behavior among sexually active young people in Nigeria",a:"Okunlola, D. A., Alawode, O. A., Bolarinwa, O. A., Agbeja, I. O., & Awoleye, A. F.",j:"Global Journal of Health Science, 12(8), 1–9",k:["srh"]},
- {y:2018,t:"Demographic assessment and adjustment of census age distribution in selected West African countries",a:"Njoku, O. E., Okunlola, D. A., & Adedini, S. A.",j:"African Population Studies, 32(3)",k:["pop"]}
-];
-const esc = s => s.replace(/&/g,"&amp;").replace(/</g,"&lt;");
-let active = "all";
-function render(){
-  const list = document.getElementById("pubs");
-  const rows = PUBS.filter(p => active==="all" || p.k.includes(active));
-  list.innerHTML = rows.map(p => {
-    const title = p.u ? `<a href="${p.u}">${esc(p.t)}</a>` : esc(p.t);
-    const [jn, ...rest] = p.j.split(/,(.+)/);
-    return `<li><span class="yr">${p.y}</span><div><p class="pt">${title}</p><p class="pa">${esc(p.a).replace(ME,"<b>"+ME+"</b>")}</p><p class="pj"><i>${esc(jn)}</i>${rest[0]?","+esc(rest[0]):""}</p></div></li>`;
-  }).join("");
-  document.querySelectorAll("#filters button").forEach(b => b.setAttribute("aria-pressed", b.dataset.k===active ? "true":"false"));
-}
-const f = document.getElementById("filters");
-const count = k => k==="all" ? PUBS.length : PUBS.filter(p=>p.k.includes(k)).length;
-f.innerHTML = [["all","All"],...Object.entries(TOPICS)].map(([k,l]) => `<button type="button" data-k="${k}">${l}<span class="c">${count(k)}</span></button>`).join("");
-f.addEventListener("click", e => { const b = e.target.closest("button"); if(!b) return; active = b.dataset.k; render(); });
-render();
-
-document.querySelectorAll(".copy").forEach(btn => btn.addEventListener("click", () => {
-  const el = document.getElementById(btn.dataset.copy);
-  const done = () => { btn.textContent = "Copied"; setTimeout(()=>btn.textContent="Copy",1500); };
-  try { navigator.clipboard.writeText(el.textContent).then(done, () => selectText(el)); } catch(e){ selectText(el); }
-}));
-function selectText(el){ const r = document.createRange(); r.selectNodeContents(el); const s = getSelection(); s.removeAllRanges(); s.addRange(r); }
-</script>
+</body>
+</html>
